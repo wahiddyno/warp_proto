@@ -1,0 +1,40 @@
+{% extends "bootstrap/base.html" %} {% block title %}{% endblock %} {%block
+navbar %}
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img
+      src="../static/logo.png"
+      width="30"
+      height="30"
+      class="d-inline-block align-top pull-left"
+      alt=""
+      style="padding-right: 5px;"
+    />Warp-Drive</a
+  >
+</nav>
+{%endblock%} {%block content%}
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h3>share files fast and secure!</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label for="exampleFormControlFile1">select the files to send</label>
+          <input
+            type="file"
+            class="form-control-file text-center"
+            id="exampleFormControlFile1"
+          />
+          <br />
+          <button type="submit" class="btn btn-primary">
+            Upload and Generate Link
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-muted">Made by @bdui</div>
+  </div>
+</div>
+{%endblock%}
