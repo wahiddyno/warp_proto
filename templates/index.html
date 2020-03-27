@@ -1,6 +1,5 @@
-{% extends "bootstrap/base.html" %} {% block title %}{% endblock %} {%block
+{% extends "layout.html" %} {% block title %}Warp-Proto{% endblock %} {%block
 navbar %}
-<link rel="stylesheet" type="text/css" href="../static/styles.css" />
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" href="#">
     <img
@@ -35,24 +34,30 @@ navbar %}
               >select the files to send</label
             >
             <br />
+            <button
+              id="input_btn"
+              type="button"
+              class="btn btn-outline-primary btn-lg"
+              style="margin-bottom: 10px;"
+              onclick="thisFileUpload()"
+            >
+              Select files
+            </button>
             <input
               type="file"
               name="file"
               class="form-control-file text-center"
               id="input_file"
-              style="display: none;"
+              style="position:absolute; top:-100px;"
             />
-            <button
-              id="input_btn"
-              class="btn btn-outline-primary btn-lg"
-              value="Upload"
-              onclick="thisfileupload();"
-              style="margin-bottom: 10px;"
-            >
-              Upload
-            </button>
             <br />
-            <button type="submit" class="btn btn-primary btn-lg">
+            <button
+              id="uploadit"
+              type="submit"
+              value="Upload"
+              class="btn btn-primary btn-lg"
+              disabled
+            >
               Upload and Generate Link
             </button>
           </div>
@@ -62,9 +67,4 @@ navbar %}
     </div>
   </div>
 </div>
-<script>
-  function thisFileUpload() {
-    document.getElementById("input_file").click();
-  }
-</script>
 {%endblock%}

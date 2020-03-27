@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, Response
 from flask_bootstrap import Bootstrap
 import boto3
 from itsdangerous import URLSafeSerializer
@@ -39,18 +39,17 @@ def get_buckets_list():
 
 
 def put_object(obj):
-    bucket_obj = get_bucket()
     file_name = obj.filename
     token = auth_s.dumps(file_name)
-    bucket_obj.upload_fileobj(obj, token, ExtraArgs={
-        "ACL": "public-read",
-        "ContentType": obj.content_type
-    })
+    bucket_obj = get_bucket()
+    bucket_obj.Object(token).put(Body=obj)
     return(token)
 
 
 @app.route('/')
 def index():
+    global link_prefix
+    link_prefix == request.base_url
     return render_template('index.html')
 
 
@@ -61,12 +60,18 @@ def upload():
     return render_template('successful.html', key=link_prefix + str(key))
 
 
-@app.route('/files')
-def files():
-    my_bucket = get_bucket()
-    summaries = my_bucket.objects.all()
-
-    return render_template('files.html', my_bucket=my_bucket, files=summaries)
+@app.route('/download/<token>')
+def download(token):
+    assert token == request.view_args['token']
+    bucket_obj = get_bucket()
+    file_obj = bucket_obj.Object(token).get()
+    file_name = auth_s.loads(token)
+    return Response(
+        file_obj['Body'].read(),
+        mimetype='application/octet-stream',
+        headers={
+            "Content-Disposition": "attachment;filename={}".format(file_name)}
+    )
 
 
 if __name__ == "__main__":
