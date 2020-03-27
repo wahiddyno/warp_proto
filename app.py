@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, Res
 from flask_bootstrap import Bootstrap
 import boto3
 from itsdangerous import URLSafeSerializer
-from config import S3_BUCKET, S3_KEY, S3_SECRET, INDEX, link_prefix
+from config import S3_BUCKET, S3_KEY, S3_SECRET, INDEX
 from flask import session
 
 
@@ -10,6 +10,7 @@ app = Flask(__name__)
 Bootstrap(app)
 app.secret_key = 'warpit'
 auth_s = URLSafeSerializer(app.secret_key, "auth")
+link_prefix = ""
 
 
 def _get_s3_resource():
