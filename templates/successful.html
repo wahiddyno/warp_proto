@@ -1,0 +1,48 @@
+{% extends "bootstrap/base.html" %} {%block content%}
+<link rel="stylesheet" type="text/css" href="../static/styles.css" />
+<div
+  class="flex flex-col items-center font-sans md:h-screen md:bg-grey-10 dark:bg-black"
+>
+  <div class="form-group">
+    <div class="card text-center">
+      <div class="card-header">
+        <h3><p>Get the file from the below link</p></h3>
+      </div>
+      <div class="card-body">
+        <input
+          type="text"
+          name="text"
+          id="link-text"
+          class="form-control-file"
+          value="{{key}}"
+          readonly
+        />
+        <br />
+        <button
+          class="btn btn-primary"
+          onclick="myFunction()"
+          style="margin-top: 10px;"
+        >
+          Copy link
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function myFunction() {
+    /* Get the text field */
+    var copyText = document.getElementById("link-text");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+  }
+</script>
+{%endblock%}

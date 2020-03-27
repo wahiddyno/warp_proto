@@ -1,5 +1,6 @@
 {% extends "bootstrap/base.html" %} {% block title %}{% endblock %} {%block
 navbar %}
+<link rel="stylesheet" type="text/css" href="../static/styles.css" />
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" href="#">
     <img
@@ -13,28 +14,57 @@ navbar %}
   >
 </nav>
 {%endblock%} {%block content%}
-<div class="container">
-  <div class="card text-center">
-    <div class="card-header">
-      <h3>share files fast and secure!</h3>
+<div
+  class="flex flex-col items-center font-sans md:h-screen md:bg-grey-10 dark:bg-black"
+  style="background-color: black;"
+>
+  <div class="container">
+    <div class="card text-center">
+      <div class="card-header">
+        <h3 style="color: darkorange;">share files fast and secure!</h3>
+      </div>
+      <div class="card-body">
+        <form
+          class="upload-form"
+          action="/upload"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="exampleFormControlFile1" style="color: white;"
+              >select the files to send</label
+            >
+            <br />
+            <input
+              type="file"
+              name="file"
+              class="form-control-file text-center"
+              id="input_file"
+              style="display: none;"
+            />
+            <button
+              id="input_btn"
+              class="btn btn-outline-primary btn-lg"
+              value="Upload"
+              onclick="thisfileupload();"
+              style="margin-bottom: 10px;"
+            >
+              Upload
+            </button>
+            <br />
+            <button type="submit" class="btn btn-primary btn-lg">
+              Upload and Generate Link
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-muted">Made by @bdui</div>
     </div>
-    <div class="card-body">
-      <form>
-        <div class="form-group">
-          <label for="exampleFormControlFile1">select the files to send</label>
-          <input
-            type="file"
-            class="form-control-file text-center"
-            id="exampleFormControlFile1"
-          />
-          <br />
-          <button type="submit" class="btn btn-primary">
-            Upload and Generate Link
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="card-footer text-muted">Made by @bdui</div>
   </div>
 </div>
+<script>
+  function thisFileUpload() {
+    document.getElementById("input_file").click();
+  }
+</script>
 {%endblock%}
